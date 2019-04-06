@@ -1,0 +1,6 @@
+name: SkriptInsightDocExtractionTool
+version: @version@
+main: me.skriptinsight.extractiontool.SkriptInsightDocExtractionTool
+api-version: 1.13
+depend: [Skript]
+authors: [NickAc]

@@ -9,7 +9,10 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class SkriptType {
     private int id;
@@ -27,6 +30,11 @@ public class SkriptType {
     private transient SkriptAddon addon;
     private String addonName;
     private String[] possibleValues;
+    private List<String> patterns;
+
+    public List<String> getPatterns() {
+        return patterns;
+    }
 
     public SkriptType(ClassInfo<?> info) {
         this.typeName = info.getCodeName();
@@ -35,6 +43,9 @@ public class SkriptType {
         this.usage = info.getUsage();
         this.examples = info.getExamples();
         this.since = info.getSince();
+        if (info.getUserInputPatterns() != null)
+            this.patterns = Arrays.stream(info.getUserInputPatterns()).map(Pattern::pattern).collect(Collectors.toList());
+
         addon = SkriptDocumentation.getAddonFromClassInfo(info);
         if (addon != null) {
             addonName = addon.getName();

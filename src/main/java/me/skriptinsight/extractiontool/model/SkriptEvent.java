@@ -50,7 +50,7 @@ public class SkriptEvent {
             allFutureEventValues = getValueInfosFor(1);
 
         name = eventInfo.getName();
-        patterns = eventInfo.patterns;
+        patterns = Arrays.stream(eventInfo.patterns).sorted(String::compareTo).toArray(String[]::new);
         id = eventInfo.getId().hashCode();
         description = eventInfo.getDescription();
         if (description != null)

@@ -3,6 +3,8 @@ package me.skriptinsight.extractiontool.model;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.SyntaxElementInfo;
 
+import java.util.Arrays;
+
 public class SkriptEffect {
     private transient SkriptAddon addon;
     private String[] patterns;
@@ -10,7 +12,7 @@ public class SkriptEffect {
     private String className;
 
     public SkriptEffect(SyntaxElementInfo<? extends Effect> effect) {
-        this.patterns = effect.patterns;
+        this.patterns = Arrays.stream(effect.patterns).sorted(String::compareTo).toArray(String[]::new);
         addon = SkriptDocumentation.getAddonFromClass(effect.c);
         if (addon != null) {
             addonName = addon.getName();

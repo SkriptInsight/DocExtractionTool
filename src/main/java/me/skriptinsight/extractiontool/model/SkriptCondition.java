@@ -3,6 +3,8 @@ package me.skriptinsight.extractiontool.model;
 import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.SyntaxElementInfo;
 
+import java.util.Arrays;
+
 public class SkriptCondition {
     private String[] patterns;
     private transient SkriptAddon addon;
@@ -10,7 +12,8 @@ public class SkriptCondition {
     private String className;
 
     public SkriptCondition(SyntaxElementInfo<? extends Condition> c) {
-        this.patterns = c.patterns;
+        if (c.patterns != null)
+            this.patterns = Arrays.stream(c.patterns).sorted(String::compareTo).toArray(String[]::new);
         addon = SkriptDocumentation.getAddonFromClass(c.c);
         if (addon != null) {
             addonName = addon.getName();

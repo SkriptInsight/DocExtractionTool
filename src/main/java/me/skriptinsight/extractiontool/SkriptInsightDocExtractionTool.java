@@ -2,6 +2,7 @@ package me.skriptinsight.extractiontool;
 
 import co.aikar.commands.PaperCommandManager;
 import me.skriptinsight.extractiontool.cmd.ExtractDocCommand;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.Nullable;
 
@@ -17,7 +18,7 @@ public final class SkriptInsightDocExtractionTool extends JavaPlugin {
             return null;
         Matcher matcher = htmlPattern.matcher(val);
 
-        return matcher.replaceAll("$1");
+        return StringEscapeUtils.unescapeHtml(matcher.replaceAll("$1"));
     }
 
     @Override

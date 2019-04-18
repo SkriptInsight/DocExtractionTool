@@ -22,8 +22,8 @@ public class SkriptDocumentation {
     }
 
     @Nullable
-    public static SkriptAddon getAddon(String name) {
-        return addons.getOrDefault(name, null);
+    public static SkriptAddon getAddonByName(String name) {
+        return addons.values().stream().filter((d) -> d.getName().equals(name)).findFirst().orElse(null);
     }
 
     public static Map<String, SkriptAddon> getAddons() {

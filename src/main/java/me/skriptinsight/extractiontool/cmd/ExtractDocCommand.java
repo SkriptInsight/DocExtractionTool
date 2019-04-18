@@ -46,12 +46,17 @@ public class ExtractDocCommand extends BaseCommand {
 
         SkriptDocumentation.getAddons().put(Skript.class.getPackage().getName(), new SkriptAddon("Skript"));
 
-        String name = addon == null ? "" : addon;
-        SkriptDocumentation doc = new SkriptDocumentation(SkriptDocumentation.getAddon(name));
         //Get addons
-
         Skript.getAddons().forEach(a -> SkriptDocumentation.getAddons().put(a.plugin.getClass().getPackage().getName(),
                 new SkriptAddon(a.getName())));
+
+        String name = addon == null ? "" : addon;
+        SkriptDocumentation doc = new SkriptDocumentation(SkriptDocumentation.getAddonByName(name));
+
+        if (doc.getAddon() == null || doc.getAddon().getName() == null) {
+            sender.sendMessage(msg(ChatColor.RED + "Unable to find an addon with that name."));
+            return;
+        }
 
         doc.getTypes()
                 .addAll(
@@ -103,7 +108,7 @@ public class ExtractDocCommand extends BaseCommand {
 
         try {
             try (FileWriter writer =
-                         new FileWriter(new File(SkriptInsightDocExtractionTool.getPlugin(SkriptInsightDocExtractionTool.class).getDataFolder(), "output.json"))) {
+                         new FileWriter(new File(SkriptInsightDocExtractionTool.getPlugin(SkriptInsightDocExtractionTool.class).getDataFolder(), doc.getAddon().getName() + ".json"))) {
                 writer.append(gson.toJson(doc));
             }
         } catch (IOException e) {

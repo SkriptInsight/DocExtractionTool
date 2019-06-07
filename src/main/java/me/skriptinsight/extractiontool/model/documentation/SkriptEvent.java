@@ -1,4 +1,4 @@
-package me.skriptinsight.extractiontool.model;
+package me.skriptinsight.extractiontool.model.documentation;
 
 import ch.njol.skript.lang.SkriptEventInfo;
 import ch.njol.skript.registrations.Classes;

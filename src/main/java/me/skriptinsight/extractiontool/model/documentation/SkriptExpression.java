@@ -1,4 +1,4 @@
-package me.skriptinsight.extractiontool.model;
+package me.skriptinsight.extractiontool.model.documentation;
 
 import ch.njol.skript.lang.ExpressionInfo;
 
@@ -9,6 +9,7 @@ public class SkriptExpression {
     private transient SkriptAddon addon;
     private String addonName;
     private String className;
+    private String returnType;
 
     public SkriptExpression(ExpressionInfo info) {
         addon = SkriptDocumentation.getAddonFromClass(info.c);
@@ -18,6 +19,11 @@ public class SkriptExpression {
         else
             patterns = new String[0];
         className = info.c.getSimpleName();
+        returnType = info.returnType.getSimpleName();
+    }
+
+    public String getReturnType() {
+        return returnType;
     }
 
     public String[] getPatterns() {

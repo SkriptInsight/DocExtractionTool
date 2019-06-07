@@ -1,6 +1,7 @@
-package me.skriptinsight.extractiontool.model;
+package me.skriptinsight.extractiontool.model.documentation;
 
 import ch.njol.skript.classes.ClassInfo;
+import me.skriptinsight.extractiontool.model.aliases.AliasesInfo;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.Map;
 
 public class SkriptDocumentation {
     private transient static Map<String, SkriptAddon> addons = new HashMap<>();
+    private transient AliasesInfo aliasesInfo;
     private SkriptAddon addon;
     private List<SkriptType> types = new ArrayList<>();
     private List<SkriptCondition> conditions = new ArrayList<>();
@@ -46,9 +48,18 @@ public class SkriptDocumentation {
                 .map(Map.Entry::getValue).orElse(null);
     }
 
+    public AliasesInfo getAliasesInfo() {
+        return aliasesInfo;
+    }
+
+    public void setAliasesInfo(AliasesInfo aliasesInfo) {
+        this.aliasesInfo = aliasesInfo;
+    }
+
     public List<SkriptExpression> getExpressions() {
         return expressions;
     }
+
     public List<SkriptEvent> getEvents() {
         return events;
     }

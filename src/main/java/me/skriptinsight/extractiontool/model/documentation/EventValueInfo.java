@@ -1,4 +1,4 @@
-package me.skriptinsight.extractiontool.model;
+package me.skriptinsight.extractiontool.model.documentation;
 
 import me.skriptinsight.extractiontool.mirror.EventValues;
 

@@ -4,15 +4,14 @@ import co.aikar.commands.PaperCommandManager;
 import me.skriptinsight.extractiontool.cmd.ExtractDocCommand;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public final class SkriptInsightDocExtractionTool extends JavaPlugin {
+public final class  SkriptInsightDocExtractionTool extends JavaPlugin {
 
     private static Pattern htmlPattern = Pattern.compile("<.+?>(.+?)</.+?>");
-    @Nullable
+
     public static String removeHtml(String val) {
         if (val == null)
             return null;

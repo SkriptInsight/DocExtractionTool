@@ -1,6 +1,8 @@
 package me.skriptinsight.extractiontool.model.documentation;
 
 import ch.njol.skript.lang.ExpressionInfo;
+import ch.njol.skript.lang.ExpressionType;
+import me.skriptinsight.extractiontool.SkriptInsightDocExtractionTool;
 
 import java.util.Arrays;
 
@@ -10,6 +12,7 @@ public class SkriptExpression {
     private String addonName;
     private String className;
     private String returnType;
+    private ExpressionType expressionType = ExpressionType.SIMPLE;
 
     public SkriptExpression(ExpressionInfo info) {
         addon = SkriptDocumentation.getAddonFromClass(info.c);
@@ -20,6 +23,15 @@ public class SkriptExpression {
             patterns = new String[0];
         className = info.c.getSimpleName();
         returnType = info.returnType.getSimpleName();
+
+        if (SkriptInsightDocExtractionTool.isIsUsingOurCustomSkript()) {
+            //We are using our custom Skript version that stores the expression types
+            expressionType = info.expressionType;
+        }
+    }
+
+    public ExpressionType getExpressionType() {
+        return expressionType;
     }
 
     public String getReturnType() {

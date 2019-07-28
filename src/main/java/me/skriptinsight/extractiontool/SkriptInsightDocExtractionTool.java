@@ -5,12 +5,22 @@ import me.skriptinsight.extractiontool.cmd.ExtractDocCommand;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public final class  SkriptInsightDocExtractionTool extends JavaPlugin {
-
+public final class SkriptInsightDocExtractionTool extends JavaPlugin {
+    private static SkriptInsightDocExtractionTool instance;
     private static Pattern htmlPattern = Pattern.compile("<.+?>(.+?)</.+?>");
+    private static boolean isUsingOurCustomSkript = false;
+
+    public static SkriptInsightDocExtractionTool getInstance() {
+        return instance;
+    }
+
+    public static Logger getPluginLogger() {
+        return instance.getLogger();
+    }
 
     public static String removeHtml(String val) {
         if (val == null)
@@ -21,8 +31,21 @@ public final class  SkriptInsightDocExtractionTool extends JavaPlugin {
     }
 
     @Override
-    public void onEnable() {
+    public void onLoad() {
+        instance = this;
         getDataFolder().mkdir();
+    }
+
+    public static boolean isIsUsingOurCustomSkript() {
+        return isUsingOurCustomSkript;
+    }
+
+    @Override
+    public void onEnable() {
+        try {
+            Class.forName("me.skriptinsight.SkriptInsightRocks");
+            isUsingOurCustomSkript = true;
+        } catch (ClassNotFoundException ignored) {}
 
         PaperCommandManager manager = new PaperCommandManager(this);
 
@@ -31,6 +54,7 @@ public final class  SkriptInsightDocExtractionTool extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        instance = null;
         // Plugin shutdown logic
     }
 }

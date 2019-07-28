@@ -35,7 +35,7 @@ dependencies {
     shadow 'com.destroystokyo.paper:paper-api:1.13.2-R0.1-SNAPSHOT'
     compile "co.aikar:acf-paper:0.5.0-SNAPSHOT"
     implementation 'com.github.amogilev:yagson:67167a988c'
-//    implementation 'com.github.Genymobile:mirror:a17a866847'
+    shadow files("${System.getProperty('java.home')}/../lib/tools.jar")
 }
 
 import org.apache.tools.ant.filters.ReplaceTokens

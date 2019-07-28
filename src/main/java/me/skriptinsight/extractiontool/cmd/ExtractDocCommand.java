@@ -44,7 +44,6 @@ import java.util.stream.StreamSupport;
 public class ExtractDocCommand extends BaseCommand {
 
     private static YaGson gson = new YaGsonBuilder()
-            //.setPrettyPrinting()
             .disableHtmlEscaping()
             .excludeFieldsWithModifiers(Modifier.TRANSIENT)
             .setTypeInfoPolicy(TypeInfoPolicy.DISABLED)
@@ -54,6 +53,8 @@ public class ExtractDocCommand extends BaseCommand {
     private String msg(String msg) {
         return ChatColor.GRAY + "SkriptInsight> " + msg;
     }
+
+    //region Stubs
 
     @Subcommand("stubs")
     public void genStubs(CommandSender sender) {
@@ -111,11 +112,13 @@ public class ExtractDocCommand extends BaseCommand {
     private String parameterToString(Parameter<?> p) {
         paramMirror.setInstance(p);
 
-        boolean isNaN = (paramMirror.getDef() != null && paramMirror.getDef().toString(null, false).equalsIgnoreCase("NaN"));
+        boolean isNaN = (paramMirror.getDef() != null && paramMirror.getDef().toString(null, false).equalsIgnoreCase(
+                "NaN"));
 
         return paramMirror.getName() + ": " + Utils.toEnglishPlural(paramMirror.getType().getCodeName(),
-                !paramMirror.isSingle()) + (paramMirror.getDef() != null && !isNaN ? " = " + paramMirror.getDef().toString(null
-                , false) : "");
+                !paramMirror.isSingle()) + (paramMirror.getDef() != null && !isNaN ?
+                " = " + paramMirror.getDef().toString(null
+                        , false) : "");
     }
 
     private void writeStubsHeader(PrintWriter writer) {
@@ -129,6 +132,7 @@ public class ExtractDocCommand extends BaseCommand {
         for (String line : fileHeader) writer.println("# " + line);
         writer.println();
     }
+    //endregion
 
     @Default
     public void extract(CommandSender sender, String addon) {

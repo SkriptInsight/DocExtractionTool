@@ -1,6 +1,8 @@
 name: SkriptInsightDocExtractionTool
 version: @version@
 main: me.skriptinsight.extractiontool.SkriptInsightDocExtractionTool
-api-version: 1.13
-depend: [Skript]
+api-version: '1.13'
+load: STARTUP
+depend:
+  - Skript
 authors: [NickAc]

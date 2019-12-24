@@ -48,7 +48,7 @@ processResources {
 
 shadowJar {
     relocate 'co.aikar.commands', 'me.skriptinsight.acf'
-    destinationDir = new File(project.projectDir.absolutePath, "Server\\plugins")
+//    destinationDir = new File(project.projectDir.absolutePath, "Server\\plugins")
 }
 
 build.dependsOn shadowJar

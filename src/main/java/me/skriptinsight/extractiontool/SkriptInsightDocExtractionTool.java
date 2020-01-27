@@ -36,6 +36,7 @@ public final class SkriptInsightDocExtractionTool extends JavaPlugin {
         getDataFolder().mkdir();
     }
 
+
     public static boolean isIsUsingOurCustomSkript() {
         return isUsingOurCustomSkript;
     }

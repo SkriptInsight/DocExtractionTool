@@ -22,7 +22,7 @@ public class SkriptExpression {
         else
             patterns = new String[0];
         className = info.c.getSimpleName();
-        returnType = info.returnType.getSimpleName();
+        returnType = info.returnType.getName();
 
         if (SkriptInsightDocExtractionTool.isIsUsingOurCustomSkript()) {
             //We are using our custom Skript version that stores the expression types

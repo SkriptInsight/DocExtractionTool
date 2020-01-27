@@ -4,6 +4,8 @@ import ch.njol.skript.Skript;
 import ch.njol.skript.classes.ClassInfo;
 import com.genymobile.mirror.Mirror;
 import me.skriptinsight.extractiontool.SkriptInsightDocExtractionTool;
+import me.skriptinsight.extractiontool.mirror.entitydata.EntityDataInfoMirror;
+import me.skriptinsight.extractiontool.mirror.entitydata.EntityDataMirror;
 import me.skriptinsight.extractiontool.mirror.entitydata.NounMirror;
 import me.skriptinsight.extractiontool.mirror.entitydata.SimpleLiteralMirror;
 import org.jetbrains.annotations.NotNull;
@@ -12,8 +14,13 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class SkriptType {
     private int id;
@@ -34,6 +41,7 @@ public class SkriptType {
     private List<String> patterns;
 
     public SkriptType(ClassInfo<?> info) {
+
         this.typeName = info.getCodeName();
         this.id = typeName.hashCode();
         if (info.getDescription() != null)
@@ -52,7 +60,7 @@ public class SkriptType {
         if (addon != null) {
             addonName = addon.getName();
         }
-        className = info.getC().getSimpleName();
+        className = info.getC().getName();
 
         try {
             fetchManualValues(info, className);
@@ -74,13 +82,30 @@ public class SkriptType {
         return possibleValues;
     }
 
+    public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
+        Set<Object> seen = ConcurrentHashMap.newKeySet();
+        return t -> seen.add(keyExtractor.apply(t));
+    }
+
+
     private void fetchManualValues(ClassInfo<?> info, String clazz) throws IllegalAccessException {
-        if (Objects.equals(clazz, "EntityData")) {
+        if (Objects.equals(clazz, "ch.njol.skript.entity.EntityData")) {
+            Stream<NounMirror> infos = Mirror.create(EntityDataMirror.class).getInfos()
+                    .stream().map(c -> {
+                        EntityDataInfoMirror mirror = Mirror.create(EntityDataInfoMirror.class);
+                        mirror.setInstance(c);
+                        return mirror;
+                    })
+                    .flatMap(c -> Arrays.stream(c.getNames()));
+
+
             SimpleLiteralMirror mirror = Mirror.create(SimpleLiteralMirror.class);
             mirror.setInstance(info.getDefaultExpression());
-            NounMirror[] names = mirror.getSimpleEntityData()[0].getEntityDataInfo().getNames();
+            Stream<NounMirror> names = Stream.concat(infos,
+                    Arrays.stream(mirror.getSimpleEntityData()[0].getEntityDataInfo().getNames()))
+                    .filter(distinctByKey(NounMirror::getValue));
 
-            possibleValues = Arrays.stream(names).map(NounMirror::getValue).toArray(String[]::new);
+            possibleValues = names.map(NounMirror::getValue).toArray(String[]::new);
         }
     }
 

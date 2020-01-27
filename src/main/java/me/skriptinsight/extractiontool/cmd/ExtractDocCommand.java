@@ -17,6 +17,7 @@ import co.aikar.commands.annotation.Subcommand;
 import com.genymobile.mirror.Mirror;
 import com.gilecode.yagson.YaGson;
 import com.gilecode.yagson.YaGsonBuilder;
+import com.gilecode.yagson.refs.ReferencesPolicy;
 import com.gilecode.yagson.types.TypeInfoPolicy;
 import me.skriptinsight.extractiontool.SkriptInsightDocExtractionTool;
 import me.skriptinsight.extractiontool.mirror.AliasesProviderMirror;
@@ -27,11 +28,9 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.lang.reflect.Modifier;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -47,6 +46,8 @@ public class ExtractDocCommand extends BaseCommand {
             .disableHtmlEscaping()
             .excludeFieldsWithModifiers(Modifier.TRANSIENT)
             .setTypeInfoPolicy(TypeInfoPolicy.DISABLED)
+            .setPrettyPrinting()
+            .setReferencesPolicy(ReferencesPolicy.CIRCULAR_ONLY)
             .create();
     private static ParameterMirror paramMirror = Mirror.create(ParameterMirror.class);
 
@@ -62,7 +63,8 @@ public class ExtractDocCommand extends BaseCommand {
                 SkriptInsightDocExtractionTool.getPlugin(SkriptInsightDocExtractionTool.class).getDataFolder();
 
         try (PrintWriter writer =
-                     new PrintWriter(new FileWriter(new File(dataFolder, "stubs.sk")))) {
+                     new PrintWriter(new OutputStreamWriter(new FileOutputStream(new File(dataFolder, "stubs.sk")),
+                             StandardCharsets.UTF_8))) {
             writeStubsHeader(writer);
 
             Functions.getJavaFunctions().forEach(f -> writeStubFunction(f, writer));
@@ -154,13 +156,19 @@ public class ExtractDocCommand extends BaseCommand {
             File dataFolder =
                     SkriptInsightDocExtractionTool.getPlugin(SkriptInsightDocExtractionTool.class).getDataFolder();
 
-            try (FileWriter writer =
-                         new FileWriter(new File(dataFolder, doc.getAddon().getName() + ".json"))) {
+
+            try (PrintWriter writer =
+                         new PrintWriter(new OutputStreamWriter(new FileOutputStream(new File(dataFolder,
+                                 doc.getAddon().getName() + ".json")),
+                                 StandardCharsets.UTF_8))) {
                 writer.append(gson.toJson(doc));
             }
 
             if (doc.getAliasesInfo() != null) {
-                try (FileWriter writer = new FileWriter(new File(dataFolder, "aliases.json"))) {
+                try (PrintWriter writer =
+                             new PrintWriter(new OutputStreamWriter(new FileOutputStream(new File(dataFolder,
+                                     "aliases.json")),
+                                     StandardCharsets.UTF_8))) {
                     writer.append(gson.toJson(doc.getAliasesInfo()));
                 }
             }

@@ -21,9 +21,9 @@ public class SkriptEvent {
     private final String name;
     private final int id;
     private final String[] patterns;
-    private String[] currentEventValues;
-    private String[] pastEventValues;
-    private String[] futureEventValues;
+    private EventValueInfo[] currentEventValues;
+    private EventValueInfo[] pastEventValues;
+    private EventValueInfo[] futureEventValues;
     @Nullable
     private String[] description;
     @Nullable
@@ -66,38 +66,42 @@ public class SkriptEvent {
                         .map(c -> Arrays.stream(allCurrentEventValues)
                                 .filter(ce -> ce.getEventClassObj().isAssignableFrom(c)))
                         .flatMap(Function.identity())
-                        .map(c -> "event-" + Classes.getSuperClassInfo(c.getValueClassObj()).getCodeName())
-                        .toArray(String[]::new);
+                        .toArray(EventValueInfo[]::new);
+
         pastEventValues =
                 Arrays.stream(eventInfo.events)
-                        .map(c -> Arrays.stream(allCurrentEventValues)
+                        .map(c -> Arrays.stream(allPastEventValues)
                                 .filter(ce -> ce.getEventClassObj().isAssignableFrom(c)))
                         .flatMap(Function.identity())
                         .map(
-                                c -> new String[]{
-                                        "past event-" + Classes.getSuperClassInfo(c.getValueClassObj()).getCodeName(),
-                                        "former event-" + Classes.getSuperClassInfo(c.getValueClassObj()).getCodeName()
+                                c -> new EventValueInfo[]{
+
+                                        c.withTime("past"),
+                                        c.withTime("former")
                                 })
                         .flatMap(Arrays::stream)
-                        .toArray(String[]::new);
+                        .toArray(EventValueInfo[]::new);
+
         futureEventValues =
                 Arrays.stream(eventInfo.events)
-                        .map(c -> Arrays.stream(allCurrentEventValues)
+                        .map(c -> Arrays.stream(allPastEventValues)
                                 .filter(ce -> ce.getEventClassObj().isAssignableFrom(c)))
                         .flatMap(Function.identity())
                         .map(
-                                c -> new String[]{
-                                        "future event-" + Classes.getSuperClassInfo(c.getValueClassObj()).getCodeName(),
-                                        "latter event-" + Classes.getSuperClassInfo(c.getValueClassObj()).getCodeName()
+                                c -> new EventValueInfo[]{
+
+                                        c.withTime("future"),
+                                        c.withTime("latter")
                                 })
                         .flatMap(Arrays::stream)
-                        .toArray(String[]::new);
+                        .toArray(EventValueInfo[]::new);
+
         addon = SkriptDocumentation.getAddonFromClass(eventInfo.c);
         if (addon != null) {
             addonName = addon.getName();
         }
         cancellable = Arrays.stream(eventInfo.events).anyMatch(Cancellable.class::isAssignableFrom);
-        classNames = Arrays.stream(eventInfo.events).map(Class::getSimpleName).toArray(String[]::new);
+        classNames = Arrays.stream(eventInfo.events).map(Class::getName).toArray(String[]::new);
     }
 
     private static EventValueInfo[] getValueInfosFor(int time) {
@@ -111,7 +115,13 @@ public class SkriptEvent {
             wrapped.add(list.get(i));
         }
 
-        return wrapped.stream().map(EventValueInfo::new).toArray(EventValueInfo[]::new);
+        return wrapped.stream().map(info -> {
+            EventValueInfo val = new EventValueInfo(info);
+            //noinspection unchecked
+            val.setValueName("event-" + Classes.getSuperClassInfo(val.getValueClassObj()).getCodeName());
+
+            return val;
+        }).toArray(EventValueInfo[]::new);
 
     }
 
@@ -126,15 +136,15 @@ public class SkriptEvent {
         return cancellable;
     }
 
-    public String[] getCurrentEventValues() {
+    public EventValueInfo[] getCurrentEventValues() {
         return currentEventValues;
     }
 
-    public String[] getPastEventValues() {
+    public EventValueInfo[] getPastEventValues() {
         return pastEventValues;
     }
 
-    public String[] getFutureEventValues() {
+    public EventValueInfo[] getFutureEventValues() {
         return futureEventValues;
     }
 

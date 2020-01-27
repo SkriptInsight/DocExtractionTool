@@ -1,4 +1,4 @@
-package me.skriptinsight.extractiontool.mirror;
+package io.github.skriptinsight.extractiontool.mirror;
 
 import ch.njol.skript.aliases.ItemType;
 import com.genymobile.mirror.annotation.Class;

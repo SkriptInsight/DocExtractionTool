@@ -1,8 +1,8 @@
-package me.skriptinsight.extractiontool.model.documentation;
+package io.github.skriptinsight.extractiontool.model.documentation;
 
 import ch.njol.skript.lang.ExpressionInfo;
 import ch.njol.skript.lang.ExpressionType;
-import me.skriptinsight.extractiontool.SkriptInsightDocExtractionTool;
+import io.github.skriptinsight.extractiontool.SkriptInsightDocExtractionTool;
 
 import java.util.Arrays;
 

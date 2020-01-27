@@ -1,4 +1,4 @@
-package me.skriptinsight.extractiontool.model.aliases;
+package io.github.skriptinsight.extractiontool.model.aliases;
 
 public class AliasesInfo {
     private String[] aliases;

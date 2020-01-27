@@ -1,20 +1,16 @@
-package me.skriptinsight.extractiontool.mirror;
+package io.github.skriptinsight.extractiontool.mirror.entitydata;
 
 import com.genymobile.mirror.annotation.Class;
 import com.genymobile.mirror.annotation.GetInstance;
 import com.genymobile.mirror.annotation.SetInstance;
 
-import java.util.List;
-
-@Class("java.util.List")
-public interface EventValuesList extends List<EventValues.EventValueInfo> {
+@Class("ch.njol.skript.localization.Message")
+public interface NounMirror {
     @GetInstance
     Object getInstance();
 
     @SetInstance
     void setInstance(Object obj);
 
-    EventValues.EventValueInfo get(int index);
-
-
+    String getValue();
 }

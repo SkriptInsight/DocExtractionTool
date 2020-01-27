@@ -1,13 +1,13 @@
-package me.skriptinsight.extractiontool.model.documentation;
+package io.github.skriptinsight.extractiontool.model.documentation;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.classes.ClassInfo;
 import com.genymobile.mirror.Mirror;
-import me.skriptinsight.extractiontool.SkriptInsightDocExtractionTool;
-import me.skriptinsight.extractiontool.mirror.entitydata.EntityDataInfoMirror;
-import me.skriptinsight.extractiontool.mirror.entitydata.EntityDataMirror;
-import me.skriptinsight.extractiontool.mirror.entitydata.NounMirror;
-import me.skriptinsight.extractiontool.mirror.entitydata.SimpleLiteralMirror;
+import io.github.skriptinsight.extractiontool.SkriptInsightDocExtractionTool;
+import io.github.skriptinsight.extractiontool.mirror.entitydata.EntityDataInfoMirror;
+import io.github.skriptinsight.extractiontool.mirror.entitydata.EntityDataMirror;
+import io.github.skriptinsight.extractiontool.mirror.entitydata.NounMirror;
+import io.github.skriptinsight.extractiontool.mirror.entitydata.SimpleLiteralMirror;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

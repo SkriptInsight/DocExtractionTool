@@ -1,7 +1,7 @@
-package me.skriptinsight.extractiontool;
+package io.github.skriptinsight.extractiontool;
 
 import co.aikar.commands.PaperCommandManager;
-import me.skriptinsight.extractiontool.cmd.ExtractDocCommand;
+import io.github.skriptinsight.extractiontool.cmd.ExtractDocCommand;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.bukkit.plugin.java.JavaPlugin;
 

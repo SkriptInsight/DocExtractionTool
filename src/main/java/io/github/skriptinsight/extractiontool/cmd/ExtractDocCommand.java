@@ -1,4 +1,4 @@
-package me.skriptinsight.extractiontool.cmd;
+package io.github.skriptinsight.extractiontool.cmd;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.aliases.Aliases;
@@ -19,11 +19,11 @@ import com.gilecode.yagson.YaGson;
 import com.gilecode.yagson.YaGsonBuilder;
 import com.gilecode.yagson.refs.ReferencesPolicy;
 import com.gilecode.yagson.types.TypeInfoPolicy;
-import me.skriptinsight.extractiontool.SkriptInsightDocExtractionTool;
-import me.skriptinsight.extractiontool.mirror.AliasesProviderMirror;
-import me.skriptinsight.extractiontool.mirror.ParameterMirror;
-import me.skriptinsight.extractiontool.model.aliases.AliasesInfo;
-import me.skriptinsight.extractiontool.model.documentation.*;
+import io.github.skriptinsight.extractiontool.SkriptInsightDocExtractionTool;
+import io.github.skriptinsight.extractiontool.mirror.AliasesProviderMirror;
+import io.github.skriptinsight.extractiontool.mirror.ParameterMirror;
+import io.github.skriptinsight.extractiontool.model.aliases.AliasesInfo;
+import io.github.skriptinsight.extractiontool.model.documentation.*;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
@@ -175,7 +175,6 @@ public class ExtractDocCommand extends BaseCommand {
         } catch (IOException e) {
             sender.sendMessage(msg(System.lineSeparator() + gson.toJson(doc)));
         }
-
     }
 
     @NotNull

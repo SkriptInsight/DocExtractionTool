@@ -1,4 +1,4 @@
-package me.skriptinsight.extractiontool.mirror;
+package io.github.skriptinsight.extractiontool.mirror;
 
 import com.genymobile.mirror.annotation.Class;
 import com.genymobile.mirror.annotation.GetField;

@@ -1,6 +1,6 @@
-package me.skriptinsight.extractiontool.model.documentation;
+package io.github.skriptinsight.extractiontool.model.documentation;
 
-import me.skriptinsight.extractiontool.mirror.EventValues;
+import io.github.skriptinsight.extractiontool.mirror.EventValues;
 
 @SuppressWarnings("rawtypes")
 public class EventValueInfo {

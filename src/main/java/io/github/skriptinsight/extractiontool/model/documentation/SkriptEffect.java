@@ -1,4 +1,4 @@
-package me.skriptinsight.extractiontool.model.documentation;
+package io.github.skriptinsight.extractiontool.model.documentation;
 
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.SyntaxElementInfo;

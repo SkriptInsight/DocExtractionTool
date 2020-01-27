@@ -1,7 +1,7 @@
-package me.skriptinsight.extractiontool.model.documentation;
+package io.github.skriptinsight.extractiontool.model.documentation;
 
 import ch.njol.skript.classes.ClassInfo;
-import me.skriptinsight.extractiontool.model.aliases.AliasesInfo;
+import io.github.skriptinsight.extractiontool.model.aliases.AliasesInfo;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;

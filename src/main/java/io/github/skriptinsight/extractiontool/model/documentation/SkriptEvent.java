@@ -1,11 +1,11 @@
-package me.skriptinsight.extractiontool.model.documentation;
+package io.github.skriptinsight.extractiontool.model.documentation;
 
 import ch.njol.skript.lang.SkriptEventInfo;
 import ch.njol.skript.registrations.Classes;
 import com.genymobile.mirror.Mirror;
-import me.skriptinsight.extractiontool.SkriptInsightDocExtractionTool;
-import me.skriptinsight.extractiontool.mirror.EventValues;
-import me.skriptinsight.extractiontool.mirror.EventValuesList;
+import io.github.skriptinsight.extractiontool.SkriptInsightDocExtractionTool;
+import io.github.skriptinsight.extractiontool.mirror.EventValues;
+import io.github.skriptinsight.extractiontool.mirror.EventValuesList;
 import org.bukkit.event.Cancellable;
 import org.jetbrains.annotations.Nullable;
 

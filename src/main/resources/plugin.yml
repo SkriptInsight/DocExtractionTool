@@ -1,6 +1,6 @@
 name: SkriptInsightDocExtractionTool
 version: @version@
-main: me.skriptinsight.extractiontool.SkriptInsightDocExtractionTool
+main: io.github.skriptinsight.extractiontool.SkriptInsightDocExtractionTool
 api-version: '1.13'
 load: STARTUP
 depend:

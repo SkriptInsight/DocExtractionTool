@@ -11,7 +11,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.function.Function;
 
 public class SkriptEvent {
     private transient static EventValueInfo[] allCurrentEventValues;
@@ -63,16 +62,14 @@ public class SkriptEvent {
         requiredPlugins = eventInfo.getRequiredPlugins();
         currentEventValues =
                 Arrays.stream(eventInfo.events)
-                        .map(c -> Arrays.stream(allCurrentEventValues)
+                        .flatMap(c -> Arrays.stream(allCurrentEventValues)
                                 .filter(ce -> ce.getEventClassObj().isAssignableFrom(c)))
-                        .flatMap(Function.identity())
                         .toArray(EventValueInfo[]::new);
 
         pastEventValues =
                 Arrays.stream(eventInfo.events)
-                        .map(c -> Arrays.stream(allPastEventValues)
+                        .flatMap(c -> Arrays.stream(allPastEventValues)
                                 .filter(ce -> ce.getEventClassObj().isAssignableFrom(c)))
-                        .flatMap(Function.identity())
                         .map(
                                 c -> new EventValueInfo[]{
 
@@ -84,9 +81,8 @@ public class SkriptEvent {
 
         futureEventValues =
                 Arrays.stream(eventInfo.events)
-                        .map(c -> Arrays.stream(allPastEventValues)
+                        .flatMap(c -> Arrays.stream(allPastEventValues)
                                 .filter(ce -> ce.getEventClassObj().isAssignableFrom(c)))
-                        .flatMap(Function.identity())
                         .map(
                                 c -> new EventValueInfo[]{
 
@@ -118,7 +114,7 @@ public class SkriptEvent {
         return wrapped.stream().map(info -> {
             EventValueInfo val = new EventValueInfo(info);
             //noinspection unchecked
-            val.setValueName("event-" + Classes.getSuperClassInfo(val.getValueClassObj()).getCodeName());
+            val.setValueName("[event-]" + Classes.getSuperClassInfo(val.getValueClassObj()).getCodeName());
 
             return val;
         }).toArray(EventValueInfo[]::new);

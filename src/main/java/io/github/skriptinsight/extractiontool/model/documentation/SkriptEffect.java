@@ -17,7 +17,7 @@ public class SkriptEffect {
         if (addon != null) {
             addonName = addon.getName();
         }
-        className = effect.c.getSimpleName();
+        className = effect.c.getName();
     }
 
     public String getClassName() {

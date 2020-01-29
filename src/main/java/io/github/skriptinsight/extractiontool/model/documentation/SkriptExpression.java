@@ -21,7 +21,7 @@ public class SkriptExpression {
             patterns = Arrays.stream(info.patterns).sorted(String::compareTo).toArray(String[]::new);
         else
             patterns = new String[0];
-        className = info.c.getSimpleName();
+        className = info.c.getName();
         returnType = info.returnType.getName();
 
         if (SkriptInsightDocExtractionTool.isIsUsingOurCustomSkript()) {

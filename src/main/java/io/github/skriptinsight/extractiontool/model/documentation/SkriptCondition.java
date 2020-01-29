@@ -18,7 +18,7 @@ public class SkriptCondition {
         if (addon != null) {
             addonName = addon.getName();
         }
-        className = c.c.getSimpleName();
+        className = c.c.getName();
 
     }
 

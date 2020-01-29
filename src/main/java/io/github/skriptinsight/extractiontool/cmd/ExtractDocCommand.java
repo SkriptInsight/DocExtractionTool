@@ -42,14 +42,14 @@ import java.util.stream.StreamSupport;
 @CommandAlias("extractdoc|ed")
 public class ExtractDocCommand extends BaseCommand {
 
-    private static YaGson gson = new YaGsonBuilder()
+    private static final YaGson gson = new YaGsonBuilder()
             .disableHtmlEscaping()
             .excludeFieldsWithModifiers(Modifier.TRANSIENT)
             .setTypeInfoPolicy(TypeInfoPolicy.DISABLED)
             .setPrettyPrinting()
             .setReferencesPolicy(ReferencesPolicy.CIRCULAR_ONLY)
             .create();
-    private static ParameterMirror paramMirror = Mirror.create(ParameterMirror.class);
+    private static final ParameterMirror paramMirror = Mirror.create(ParameterMirror.class);
 
     private String msg(String msg) {
         return ChatColor.GRAY + "SkriptInsight> " + msg;
